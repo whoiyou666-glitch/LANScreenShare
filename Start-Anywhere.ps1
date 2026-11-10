@@ -14,7 +14,7 @@ Write-Host ''
 $dir = Join-Path $env:LOCALAPPDATA 'LANScreenShare'
 New-Item -ItemType Directory -Force -Path $dir | Out-Null
 $cloudflared = Join-Path $dir 'cloudflared-2026.10.7-windows-amd64.exe'
-$expectedHash = 'd521b3bf68982165f0d06d76732f22d9a105ef057ff3ae4c0986f3a23190950f'
+$expectedHash = '2493dbc168923bb3e59e5e7716f71deced92992eea9acd6e9d74f84ac7751343'
 $cloudflaredUrl = 'https://github.com/cloudflare/cloudflared/releases/download/2026.10.7/cloudflared-windows-amd64.exe'
 $serverScript = Join-Path $dir 'Start-ScreenShare.ps1'
 $serverUrl = 'https://raw.githubusercontent.com/whoiyou666-glitch/LANScreenShare/main/Start-ScreenShare.ps1'
