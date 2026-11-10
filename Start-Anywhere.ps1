@@ -35,7 +35,7 @@ try {
   Invoke-WebRequest -Uri $serverUrl -OutFile $serverScript -UseBasicParsing
 
   # Bind the local server only to 127.0.0.1, never to the router / public network.
-  $freePort = New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Loopback,0)
+  $freePort = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Loopback,0)
   $freePort.Start()
   try { $port = ([System.Net.IPEndPoint]$freePort.LocalEndpoint).Port }
   finally { $freePort.Stop() }
@@ -61,7 +61,8 @@ try {
   # The script displays a new 128-bit one-time access token as part of the share URL.
   Write-Host ''
   Write-Host 'Starting live screen sharing now...' -ForegroundColor Cyan
-  & "$PSHOME\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $serverScript -Port $port -LocalOnly -PublicUrl $url
+  $windowsPowerShell=Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
+  & $windowsPowerShell -NoProfile -ExecutionPolicy Bypass -File $serverScript -Port $port -LocalOnly -PublicUrl $url
   if ($LASTEXITCODE -ne 0) { throw "Screen-sharing server exited with code $LASTEXITCODE" }
 }
 finally {
